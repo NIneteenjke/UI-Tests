@@ -13,9 +13,18 @@ public class MainClassTest extends MainClass{
     @Test
     public void testGetClassNumber ()
     {
-        int ClassNumber = MainClass.GetClassNumber();
-        System.out.println(ClassNumber);
-        Assert.assertTrue("Local class number less than 45",ClassNumber > 45);
+        int classNumber = MainClass.getClassNumber();
+        System.out.println(classNumber);
+        Assert.assertTrue("Local class number less than 45",classNumber > 45);//тут будет ошибка
     }
+
+//    @Test
+//    public void testGetClassString ()
+//    {
+//        MainClass.getClassString();
+//        string classString = getClassString();
+//
+//        //Assert.assertTrue("Local class number less than 45",classString > 45);
+//    }
 
 }
