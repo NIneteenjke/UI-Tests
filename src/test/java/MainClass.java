@@ -1,8 +1,13 @@
 import org.junit.Test;
 
 public class MainClass {
-    @Test
+    private int classNumber = 20;
     public static int getLocalNumber() {
         return 14;
+    }
+
+    public static int GetClassNumber() {
+        MainClass mainClass = new MainClass();
+        return mainClass.classNumber;
     }
 }
