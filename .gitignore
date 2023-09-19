@@ -34,5 +34,7 @@ build/
 ### VS Code ###
 .vscode/
 
+/apks
+
 ### Mac OS ###
 .DS_Store
