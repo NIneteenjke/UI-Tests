@@ -9,6 +9,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.List;
 import java.util.regex.Pattern;
 
 public class MainPageObject {
@@ -97,4 +98,26 @@ public class MainPageObject {
     }
 
     public void swipeUpQuick() { swipeUp(200); }
+
+    public int getAmountOfElements(String locator) {
+        By by = this.getLocatorByString(locator);
+        List<WebElement> elements = driver.findElements(by);
+        return elements.size();
+    }
+
+    public void assertElementIsPresent(String locator, String errorMessage) {
+        int amountOfElements = getAmountOfElements(locator);
+        if (amountOfElements == 0) {
+            String default_message = "An element '" + locator + "' is not there";
+            throw new AssertionError(default_message + " " + errorMessage);
+        }
+    }
+
+    public void assertElementNotPresent(String locator, String errorMessage) {
+        int amountOfElements = getAmountOfElements(locator);
+        if (amountOfElements > 0) {
+            String default_message = "An element '" + locator + "' is not there";
+            throw new AssertionError(default_message + " " + errorMessage);
+        }
+    }
 }
