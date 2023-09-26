@@ -16,11 +16,7 @@ public class AutorizationTest extends CoreTestCase {
     {
         AuthPageObject Auth = new AuthPageObject(driver);
 
-        Auth.waitForLoginField();
-        Auth.fillinLogin(login);
-        Auth.fillinPassword(password);
-        Auth.pressLoginButton();
-        Auth.assertIfObjectTab();
+        Auth.authStart(login,password);
 
     }
 }

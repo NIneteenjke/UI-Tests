@@ -17,6 +17,18 @@ public class AuthPageObject extends MainPageObject{
             NEWS_SECTION = "xpath://*[contains(@text,'Новости')]";
 
 
+    public void authStart(String login, String password){
+        this.waitForElementPresent(LOGIN_FIELD, "Cannot see login field", 10);
+        this.waitForElementAndClick(LOGIN_FIELD, "Cannot see and click login field", 5);
+        this.waitForElementAndSendKeys(LOGIN_FIELD_EDIT, login, "Cannot see and sand key login field", 5);
+        this.waitForElementAndClick(PASSWORD_FIELD, "Cannot see and click password field", 5);
+        this.waitForElementAndSendKeys(PASSWORD_FIELD_EDIT, password, "Cannot see and sand key password field", 5);
+        this.waitForElementPresent(LOGIN_BUTTON, "Cannot see login button", 5);
+        this.waitForElementAndClick(LOGIN_BUTTON, "Cannot click login button", 5);
+        this.waitForElementPresent(OBJECT_STATUS_FILTER, "Cannot see tab Object", 10);
+        this.assertElementIsPresent(OBJECT_STATUS_FILTER, "Cannot see tab Object status filter");
+
+    }
     public void waitForLoginField() {
         this.waitForElementPresent(LOGIN_FIELD, "Cannot see login field", 5);
     }
