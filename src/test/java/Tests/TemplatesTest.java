@@ -30,6 +30,24 @@ public class TemplatesTest extends CoreTestCase {
     }
 
     @Test
+    public void changeObjectStatusFilter()
+    {
+        AuthPageObject Auth = new AuthPageObject(driver);
+        ObjectPageObject Object = new ObjectPageObject(driver);
+
+        String firstObjectStatus = "Активный";
+        String secondObjectStatus = "Удален";
+
+
+        Auth.authStart(login,password);
+        Object.clickObjectStatusFilter();
+        Object.clickActiveStatus(firstObjectStatus);
+        Object.clickDeletedStatus(secondObjectStatus);
+        Object.clickDone();
+        Object.assertIfStatusChanged(secondObjectStatus);
+    }
+
+    @Test
     public void wallMaterialTest()
     {
         AuthPageObject Auth = new AuthPageObject(driver);

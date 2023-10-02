@@ -11,6 +11,9 @@ public class ObjectPageObject extends MainPageObject{
             DONE_BUTTON="xpath://*[contains(@text, 'Готово')]",
             STATUS_TYPE_TPL="xpath://*[contains(@text, '{firstObjectStatus}')]",
             WALL_MATERIAl_TPL="xpath://*[contains(@text, '{firstObjectWallMaterial}')]",
+            OBJECT_CLASS_TYPE_TPL="xpath://*[contains(@text, '{ObjectClass}')]",
+            OBJECT_TYPE_TPL="xpath://*[contains(@text, '{ObjectType}')]",
+            OBJECT_TYPE_FILTER="xpath://*[contains(@text, 'Тип недвижимости')]",
             OBJECT_WALL_MATERIAL="xpath://*[contains(@text, 'Материал стен')]",
             SELECT_METERIAL="xpath://*[contains(@text, 'Выбрано')]";
 
@@ -49,7 +52,7 @@ public class ObjectPageObject extends MainPageObject{
         return STATUS_TYPE_TPL.replace("{firstObjectStatus}", firstObjectStatus);
     }
 
-    //--------------------------------------------
+
 
     public void clickObjectWallMaterial(){
         this.swipeUpToFindElement(OBJECT_WALL_MATERIAL,"Cannot see Wall material field",10);
@@ -79,4 +82,32 @@ public class ObjectPageObject extends MainPageObject{
     private static String getXpathByWallMaterial(String firstObjectWallMaterial){
         return WALL_MATERIAl_TPL.replace("{firstObjectWallMaterial}", firstObjectWallMaterial);
     }
+
+
+    public void changeObjectClass(String objectClass){
+        String objectClassXpath = getXpathByObjectClass(objectClass);
+
+        this.waitForElementPresent(objectClassXpath,"", 10 );
+        this.waitForElementAndClick(objectClassXpath,"", 10);
+    }
+
+    private static String getXpathByObjectClass(String ObjectClass){
+        return OBJECT_CLASS_TYPE_TPL.replace("{ObjectClass}", ObjectClass);
+    }
+
+    public void changeObjectType(String objectType){
+        String objectTypeXpath = getXpathByObjectType(objectType);
+
+        this.waitForElementPresent(OBJECT_TYPE_FILTER,"Cannot see object type", 20);
+        this.waitForElementAndClick(OBJECT_TYPE_FILTER,"Cannot see and click object type", 10);
+        this.waitForElementPresent(objectTypeXpath,"Cannot see element object type", 20);
+        this.waitForElementAndClick(objectTypeXpath,"Cannot see and click element object type", 20);
+        this.waitForElementAndClick(DONE_BUTTON,"Cannot see and click done button", 20);
+    }
+
+    private static String getXpathByObjectType(String objectType){
+        return OBJECT_TYPE_TPL.replace("{objectType}", objectType);
+    }
+
+
 }
