@@ -12,8 +12,21 @@ public class ObjectPageObject extends MainPageObject{
             STATUS_TYPE_TPL="xpath://*[contains(@text, '{firstObjectStatus}')]",
             WALL_MATERIAl_TPL="xpath://*[contains(@text, '{firstObjectWallMaterial}')]",
             OBJECT_CLASS_TYPE_TPL="xpath://*[contains(@text, '{ObjectClass}')]",
-            OBJECT_TYPE_TPL="xpath://*[contains(@text, '{ObjectType}')]",
-            OBJECT_TYPE_FILTER="xpath://*[contains(@text, 'Тип недвижимости')]",
+            OBJECT_TYPE_TPL="xpath://*[contains(@text, '{objectType}')]",
+            REALTY_TYPE ="xpath://*[@text, 'Тип недвижимости *']",
+            TAB_TICKET_FILTER="xpath://*[contains(@text, 'Заявки')]",
+            CREATE_TICKET="xpath://*[contains(@text, 'Создать заявку')]",
+            NUMBER_FIELD="xpath://*[contains(@text, 'Номер телефона *')]",
+            NUMBER_FIELD_EDIT="xpath://*[contains(@text,'Номер телефона')]/preceding-sibling::*",
+            NAME_FIELD_EDIT="xpath://*[contains(@text,'Имя')]/preceding-sibling::*",
+            NAME_FIELD="xpath://*[contains(@text, 'Имя *')]",
+            OPERATION_TYPE_FIELD="xpath://*[contains(@text, 'Тип операции')]",
+            REALTY_TYPE_SALE_AND_TO_RENT="xpath://*[contains(@text, 'Тип недвижимости *')]",
+            REALTY_TYPE_BUY_AND_RENT="xpath://*[contains(@text, 'Класс недвижимости *')]",
+            OPERATION_TYPE_TPL="xpath://*[contains(@text, '{operationType}')]",
+            CONTINUE_BUTTON="xpath://*[contains(@text, 'Продолжить')]",
+            REALTY_TYPE_TPL="xpath://*[contains(@text, '{realtyType}')]",
+            CREATE_BUTTON="xpath://*[contains(@text, 'Создать')]",
             OBJECT_WALL_MATERIAL="xpath://*[contains(@text, 'Материал стен')]",
             SELECT_METERIAL="xpath://*[contains(@text, 'Выбрано')]";
 
@@ -98,8 +111,8 @@ public class ObjectPageObject extends MainPageObject{
     public void changeObjectType(String objectType){
         String objectTypeXpath = getXpathByObjectType(objectType);
 
-        this.waitForElementPresent(OBJECT_TYPE_FILTER,"Cannot see object type", 20);
-        this.waitForElementAndClick(OBJECT_TYPE_FILTER,"Cannot see and click object type", 10);
+        this.waitForElementPresent(REALTY_TYPE,"Cannot see object type", 20);
+        this.waitForElementAndClick(REALTY_TYPE,"Cannot see and click object type", 10);
         this.waitForElementPresent(objectTypeXpath,"Cannot see element object type", 20);
         this.waitForElementAndClick(objectTypeXpath,"Cannot see and click element object type", 20);
         this.waitForElementAndClick(DONE_BUTTON,"Cannot see and click done button", 20);
@@ -109,5 +122,63 @@ public class ObjectPageObject extends MainPageObject{
         return OBJECT_TYPE_TPL.replace("{objectType}", objectType);
     }
 
+
+    public void createTicket(){
+
+        this.waitForElementPresent(TAB_TICKET_FILTER,"Cannot see object type", 20);
+        this.waitForElementAndClick(TAB_TICKET_FILTER,"Cannot see and click object type", 10);
+        this.waitForElementPresent(CREATE_TICKET,"Cannot see create ticket button", 10);
+        this.waitForElementAndClick(CREATE_TICKET,"Cannot see and click create ticket button", 10);
+
+    }
+    public void fillingValueInTicket(String ticketClientNumber, String ticketClientName) {
+
+        this.waitForElementPresent(NUMBER_FIELD, "Cannot see number field", 20);
+        this.waitForElementAndClick(NUMBER_FIELD, "Cannot see and click number field", 10);
+        this.waitForElementAndSendKeys(NUMBER_FIELD_EDIT, ticketClientNumber, "Cannot see create ticket button", 10);
+        this.waitForElementAndClick(NAME_FIELD, "Cannot see create ticket button", 10);
+        this.waitForElementAndSendKeys(NAME_FIELD_EDIT, ticketClientName, "Cannot see and click create ticket button", 10);
+    }
+    public void pressCountinueButton(){
+        this.waitForElementPresent(CONTINUE_BUTTON, "Cannot see create ticket button", 10);
+        this.waitForElementAndClick(CONTINUE_BUTTON, "Cannot see create ticket button", 10);
+    }
+
+    public void changeTicketOperationAndRealtyType(String operationType, String realtyType) throws InterruptedException {
+        String operationTypeXpath = getXpathByOperationType(operationType);
+        String realtyTypeXpath = getXpathByRealtyType(realtyType);
+
+        this.waitForElementPresent(OPERATION_TYPE_FIELD, "Cannot see operation type button", 20);
+        this.waitForElementAndClick(OPERATION_TYPE_FIELD, "Cannot see and click  operation type button", 10);
+        this.waitForElementPresent(operationTypeXpath, "Cannot see operation type", 10);
+        this.waitForElementAndClick(operationTypeXpath, "Cannot see and click operation type", 10);
+        Thread.sleep(1000);
+//        switch(operationType)
+//        {
+//            case realtyType
+//        }
+        if("Продать".equals(operationType) || "Сдать".equals(operationType)) {
+            this.waitForElementPresent(REALTY_TYPE_SALE_AND_TO_RENT, "Cannot see create ticket button", 10);
+            this.waitForElementAndClick(REALTY_TYPE_SALE_AND_TO_RENT, "Cannot see create ticket button", 10);
+        }else if ("Купить".equals(operationType) || "Снять".equals(operationType)){
+            this.waitForElementPresent(REALTY_TYPE_BUY_AND_RENT, "Cannot see create ticket button buy and rent" + operationTypeXpath, 10);
+            this.waitForElementAndClick(REALTY_TYPE_BUY_AND_RENT, "Cannot see create ticket button" + operationTypeXpath, 10);
+        }
+        this.waitForElementPresent(realtyTypeXpath, "Cannot see object type", 10);
+        this.waitForElementAndClick(realtyTypeXpath, "Cannot see and click object type", 10);
+    }
+
+    private static String getXpathByOperationType(String operationType){
+        return OPERATION_TYPE_TPL.replace("{operationType}", operationType);
+    }
+
+    private static String getXpathByRealtyType(String realtyType){
+        return REALTY_TYPE_TPL.replace("{realtyType}", realtyType);
+    }
+
+    public void pressCreateButton(){
+        this.waitForElementPresent(CREATE_BUTTON, "Cannot see continue button", 10);
+        this.waitForElementAndClick(CREATE_BUTTON, "Cannot see and click continue button", 10);
+    }
 
 }

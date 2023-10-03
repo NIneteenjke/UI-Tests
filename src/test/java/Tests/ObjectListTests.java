@@ -19,13 +19,17 @@ public class ObjectListTests extends CoreTestCase {
         Auth.authStart(login, password);
 
         String objectClass = "Вторичная";
-        String cityName = "Тюмень";
+        String cityName = "Севастополь";
 
         Object.changeObjectClass(objectClass);
-        if ("Вторичная".equals(objectClass)){
+        if ("Дача, участки".equals(objectClass)){
         Object.changeObjectType("Дача");}
-        else if("Тюмень".equals(cityName)){
+        else if("Севастополь".equals(cityName)){
             Object.changeObjectType("Гостинка");
+        }else {
+            Object.changeObjectType("Квартира");
         }
     }
+
+
 }

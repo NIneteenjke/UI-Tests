@@ -67,4 +67,29 @@ public class TemplatesTest extends CoreTestCase {
         Object.clickDone();
         Object.assertIfMaterialChanged();
     }
+
+    @Test
+    public void testTicketByStatusAndType() throws InterruptedException {
+        ObjectPageObject Object = new ObjectPageObject(driver);
+        AuthPageObject Auth = new AuthPageObject(driver);
+
+        Auth.authStart(login, password);
+
+        String ticketClientNumber = "89121231323";
+        String ticketClientName = "TestОлег";
+        String operationType = "Купить";
+        String realtyType = "Гараж";
+
+        Object.createTicket();
+        Object.fillingValueInTicket(ticketClientNumber, ticketClientName);
+        Object.pressCountinueButton();
+        if("Продать".equals(operationType) || "Сдать".equals(operationType))
+        {
+            Object.changeTicketOperationAndRealtyType(operationType, "Аппартаменты");
+        }else if ("Купить".equals(operationType) || "Снять".equals(operationType)){
+        Object.changeTicketOperationAndRealtyType(operationType, "Гаражи");
+        }
+        Object.pressCreateButton();
+
+    }
 }
