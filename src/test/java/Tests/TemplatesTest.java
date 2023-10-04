@@ -9,6 +9,8 @@ public class TemplatesTest extends CoreTestCase {
 
     private static final String
             login = "130522",
+            ticketClientNumber = "89121231323",
+            ticketClientName = "TestОлег",
             password = "99679218Aa";
 
     @Test
@@ -69,27 +71,32 @@ public class TemplatesTest extends CoreTestCase {
     }
 
     @Test
-    public void testTicketByStatusAndType() throws InterruptedException {
+    public void testCreateTicketByStatusAndType() throws InterruptedException {
         ObjectPageObject Object = new ObjectPageObject(driver);
         AuthPageObject Auth = new AuthPageObject(driver);
 
+
         Auth.authStart(login, password);
-
-        String ticketClientNumber = "89121231323";
-        String ticketClientName = "TestОлег";
-        String operationType = "Купить";
-        String realtyType = "Гараж";
-
-        Object.createTicket();
+        Object.clickedToCreateTicketButton();
         Object.fillingValueInTicket(ticketClientNumber, ticketClientName);
-        Object.pressCountinueButton();
-        if("Продать".equals(operationType) || "Сдать".equals(operationType))
-        {
-            Object.changeTicketOperationAndRealtyType(operationType, "Аппартаменты");
-        }else if ("Купить".equals(operationType) || "Снять".equals(operationType)){
-        Object.changeTicketOperationAndRealtyType(operationType, "Гаражи");
-        }
+        Object.pressContinueButton();
+        Object.changeTicketOperationAndRealtyType("Купить", "Гараж");
         Object.pressCreateButton();
+        Object.assertIfTickedCreated();
+    }
 
+    @Test
+    public void testCreateTicketSaleHouse() throws InterruptedException {
+        ObjectPageObject Object = new ObjectPageObject(driver);
+        AuthPageObject Auth = new AuthPageObject(driver);
+
+
+        Auth.authStart(login, password);
+        Object.clickedToCreateTicketButton();
+        Object.fillingValueInTicket(ticketClientNumber, ticketClientName);
+        Object.pressContinueButton();
+        Object.changeTicketOperationAndRealtyType("Продать", "Дом");
+        Object.pressCreateButton();
+        Object.assertIfTickedCreated();
     }
 }

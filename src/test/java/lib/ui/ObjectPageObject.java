@@ -26,6 +26,8 @@ public class ObjectPageObject extends MainPageObject{
             OPERATION_TYPE_TPL="xpath://*[contains(@text, '{operationType}')]",
             CONTINUE_BUTTON="xpath://*[contains(@text, 'Продолжить')]",
             REALTY_TYPE_TPL="xpath://*[contains(@text, '{realtyType}')]",
+            TICKET_TOP_BAR_TITLE ="id:com.riesapp.debug:id/topBarTitle",
+            LOADER = "id:com.riesapp.debug:id/ticketsListLoader",
             CREATE_BUTTON="xpath://*[contains(@text, 'Создать')]",
             OBJECT_WALL_MATERIAL="xpath://*[contains(@text, 'Материал стен')]",
             SELECT_METERIAL="xpath://*[contains(@text, 'Выбрано')]";
@@ -111,11 +113,11 @@ public class ObjectPageObject extends MainPageObject{
     public void changeObjectType(String objectType){
         String objectTypeXpath = getXpathByObjectType(objectType);
 
-        this.waitForElementPresent(REALTY_TYPE,"Cannot see object type", 20);
+        this.waitForElementPresent(REALTY_TYPE,"Cannot see object type", 10);
         this.waitForElementAndClick(REALTY_TYPE,"Cannot see and click object type", 10);
-        this.waitForElementPresent(objectTypeXpath,"Cannot see element object type", 20);
+        this.waitForElementPresent(objectTypeXpath,"Cannot see element object type", 10);
         this.waitForElementAndClick(objectTypeXpath,"Cannot see and click element object type", 20);
-        this.waitForElementAndClick(DONE_BUTTON,"Cannot see and click done button", 20);
+        this.waitForElementAndClick(DONE_BUTTON,"Cannot see and click done button", 10);
     }
 
     private static String getXpathByObjectType(String objectType){
@@ -123,9 +125,9 @@ public class ObjectPageObject extends MainPageObject{
     }
 
 
-    public void createTicket(){
+    public void clickedToCreateTicketButton(){
 
-        this.waitForElementPresent(TAB_TICKET_FILTER,"Cannot see object type", 20);
+        this.waitForElementPresent(TAB_TICKET_FILTER,"Cannot see object type", 10);
         this.waitForElementAndClick(TAB_TICKET_FILTER,"Cannot see and click object type", 10);
         this.waitForElementPresent(CREATE_TICKET,"Cannot see create ticket button", 10);
         this.waitForElementAndClick(CREATE_TICKET,"Cannot see and click create ticket button", 10);
@@ -133,13 +135,13 @@ public class ObjectPageObject extends MainPageObject{
     }
     public void fillingValueInTicket(String ticketClientNumber, String ticketClientName) {
 
-        this.waitForElementPresent(NUMBER_FIELD, "Cannot see number field", 20);
+        this.waitForElementPresent(NUMBER_FIELD, "Cannot see number field", 10);
         this.waitForElementAndClick(NUMBER_FIELD, "Cannot see and click number field", 10);
         this.waitForElementAndSendKeys(NUMBER_FIELD_EDIT, ticketClientNumber, "Cannot see create ticket button", 10);
         this.waitForElementAndClick(NAME_FIELD, "Cannot see create ticket button", 10);
         this.waitForElementAndSendKeys(NAME_FIELD_EDIT, ticketClientName, "Cannot see and click create ticket button", 10);
     }
-    public void pressCountinueButton(){
+    public void pressContinueButton(){
         this.waitForElementPresent(CONTINUE_BUTTON, "Cannot see create ticket button", 10);
         this.waitForElementAndClick(CONTINUE_BUTTON, "Cannot see create ticket button", 10);
     }
@@ -148,7 +150,7 @@ public class ObjectPageObject extends MainPageObject{
         String operationTypeXpath = getXpathByOperationType(operationType);
         String realtyTypeXpath = getXpathByRealtyType(realtyType);
 
-        this.waitForElementPresent(OPERATION_TYPE_FIELD, "Cannot see operation type button", 20);
+        this.waitForElementPresent(OPERATION_TYPE_FIELD, "Cannot see operation type button", 10);
         this.waitForElementAndClick(OPERATION_TYPE_FIELD, "Cannot see and click  operation type button", 10);
         this.waitForElementPresent(operationTypeXpath, "Cannot see operation type", 10);
         this.waitForElementAndClick(operationTypeXpath, "Cannot see and click operation type", 10);
@@ -177,8 +179,14 @@ public class ObjectPageObject extends MainPageObject{
     }
 
     public void pressCreateButton(){
-        this.waitForElementPresent(CREATE_BUTTON, "Cannot see continue button", 10);
-        this.waitForElementAndClick(CREATE_BUTTON, "Cannot see and click continue button", 10);
+        this.waitForElementPresent(CREATE_BUTTON, "Cannot see create button", 10);
+        this.waitForElementAndClick(CREATE_BUTTON, "Cannot see and click create button", 10);
+    }
+
+    public void assertIfTickedCreated(){
+        this.waitForElementNotPresent(LOADER," Still can see loader",5);
+        this.waitForElementPresent(TICKET_TOP_BAR_TITLE,"Top bar title do not appear",5);
+        this.assertElementIsPresent(TICKET_TOP_BAR_TITLE,"Cannot see the top bar title");
     }
 
 }
