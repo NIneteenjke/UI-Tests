@@ -14,7 +14,7 @@ public class ObjectPageObject extends MainPageObject{
             OBJECT_CLASS_TYPE_TPL="xpath://*[contains(@text, '{ObjectClass}')]",
             OBJECT_TYPE_TPL="xpath://*[contains(@text, '{objectType}')]",
             REALTY_TYPE ="xpath://*[@text, 'Тип недвижимости *']",
-            TAB_TICKET_FILTER="xpath://*[contains(@text, 'Заявки')]",
+            TICKET_TAB_FILTER ="xpath://*[contains(@text, 'Заявки')]",
             CREATE_TICKET="xpath://*[contains(@text, 'Создать заявку')]",
             NUMBER_FIELD="xpath://*[contains(@text, 'Номер телефона *')]",
             NUMBER_FIELD_EDIT="xpath://*[contains(@text,'Номер телефона')]/preceding-sibling::*",
@@ -102,8 +102,8 @@ public class ObjectPageObject extends MainPageObject{
     public void changeObjectClass(String objectClass){
         String objectClassXpath = getXpathByObjectClass(objectClass);
 
-        this.waitForElementPresent(objectClassXpath,"", 10 );
-        this.waitForElementAndClick(objectClassXpath,"", 10);
+        this.waitForElementPresent(objectClassXpath,"Cannot see object class", 10 );
+        this.waitForElementAndClick(objectClassXpath,"Cannot see and click object class", 5);
     }
 
     private static String getXpathByObjectClass(String ObjectClass){
@@ -114,10 +114,10 @@ public class ObjectPageObject extends MainPageObject{
         String objectTypeXpath = getXpathByObjectType(objectType);
 
         this.waitForElementPresent(REALTY_TYPE,"Cannot see object type", 10);
-        this.waitForElementAndClick(REALTY_TYPE,"Cannot see and click object type", 10);
-        this.waitForElementPresent(objectTypeXpath,"Cannot see element object type", 10);
-        this.waitForElementAndClick(objectTypeXpath,"Cannot see and click element object type", 20);
-        this.waitForElementAndClick(DONE_BUTTON,"Cannot see and click done button", 10);
+        this.waitForElementAndClick(REALTY_TYPE,"Cannot see and click object type", 5);
+        this.waitForElementPresent(objectTypeXpath,"Cannot see element object type", 5);
+        this.waitForElementAndClick(objectTypeXpath,"Cannot see and click element object type", 5);
+        this.waitForElementAndClick(DONE_BUTTON,"Cannot see and click done button", 5);
     }
 
     private static String getXpathByObjectType(String objectType){
@@ -127,47 +127,47 @@ public class ObjectPageObject extends MainPageObject{
 
     public void clickedToCreateTicketButton(){
 
-        this.waitForElementPresent(TAB_TICKET_FILTER,"Cannot see object type", 10);
-        this.waitForElementAndClick(TAB_TICKET_FILTER,"Cannot see and click object type", 10);
-        this.waitForElementPresent(CREATE_TICKET,"Cannot see create ticket button", 10);
-        this.waitForElementAndClick(CREATE_TICKET,"Cannot see and click create ticket button", 10);
+        this.waitForElementPresent(TICKET_TAB_FILTER,"Cannot see tab ticket", 10);
+        this.waitForElementAndClick(TICKET_TAB_FILTER,"Cannot see and click tab ticket", 5);
+        this.waitForElementPresent(CREATE_TICKET,"Cannot see create ticket button", 5);
+        this.waitForElementAndClick(CREATE_TICKET,"Cannot see and click create ticket button", 5);
 
     }
     public void fillingValueInTicket(String ticketClientNumber, String ticketClientName) {
 
-        this.waitForElementPresent(NUMBER_FIELD, "Cannot see number field", 10);
-        this.waitForElementAndClick(NUMBER_FIELD, "Cannot see and click number field", 10);
-        this.waitForElementAndSendKeys(NUMBER_FIELD_EDIT, ticketClientNumber, "Cannot see create ticket button", 10);
-        this.waitForElementAndClick(NAME_FIELD, "Cannot see create ticket button", 10);
-        this.waitForElementAndSendKeys(NAME_FIELD_EDIT, ticketClientName, "Cannot see and click create ticket button", 10);
+        this.waitForElementPresent(NUMBER_FIELD, "Cannot see client number field", 10);
+        this.waitForElementAndClick(NUMBER_FIELD, "Cannot see and click client number field", 5);
+        this.waitForElementAndSendKeys(NUMBER_FIELD_EDIT, ticketClientNumber, "Cannot see and sand client number field", 10);
+        this.waitForElementAndClick(NAME_FIELD, "Cannot see and click client name field", 5);
+        this.waitForElementAndSendKeys(NAME_FIELD_EDIT, ticketClientName, "Cannot see and sand client name field", 10);
     }
     public void pressContinueButton(){
-        this.waitForElementPresent(CONTINUE_BUTTON, "Cannot see create ticket button", 10);
-        this.waitForElementAndClick(CONTINUE_BUTTON, "Cannot see create ticket button", 10);
+        this.waitForElementPresent(CONTINUE_BUTTON, "Cannot see continue button", 10);
+        this.waitForElementAndClick(CONTINUE_BUTTON, "Cannot see and click continue button", 5);
     }
 
     public void changeTicketOperationAndRealtyType(String operationType, String realtyType) throws InterruptedException {
         String operationTypeXpath = getXpathByOperationType(operationType);
         String realtyTypeXpath = getXpathByRealtyType(realtyType);
 
-        this.waitForElementPresent(OPERATION_TYPE_FIELD, "Cannot see operation type button", 10);
-        this.waitForElementAndClick(OPERATION_TYPE_FIELD, "Cannot see and click  operation type button", 10);
-        this.waitForElementPresent(operationTypeXpath, "Cannot see operation type", 10);
-        this.waitForElementAndClick(operationTypeXpath, "Cannot see and click operation type", 10);
+        this.waitForElementPresent(OPERATION_TYPE_FIELD, "Cannot see operation type field", 10);
+        this.waitForElementAndClick(OPERATION_TYPE_FIELD, "Cannot see and click  operation type field", 5);
+        this.waitForElementPresent(operationTypeXpath, "Cannot see operation type", 5);
+        this.waitForElementAndClick(operationTypeXpath, "Cannot see and click operation type", 5);
         Thread.sleep(1000);
 //        switch(operationType)
 //        {
 //            case realtyType
 //        }
         if("Продать".equals(operationType) || "Сдать".equals(operationType)) {
-            this.waitForElementPresent(REALTY_TYPE_SALE_AND_TO_RENT, "Cannot see create ticket button", 10);
-            this.waitForElementAndClick(REALTY_TYPE_SALE_AND_TO_RENT, "Cannot see create ticket button", 10);
+            this.waitForElementPresent(REALTY_TYPE_SALE_AND_TO_RENT, "Cannot see realty type sale and to rent"+ operationTypeXpath, 10);
+            this.waitForElementAndClick(REALTY_TYPE_SALE_AND_TO_RENT, "Cannot see and click realty type sale and to rent"+ operationTypeXpath, 5);
         }else if ("Купить".equals(operationType) || "Снять".equals(operationType)){
-            this.waitForElementPresent(REALTY_TYPE_BUY_AND_RENT, "Cannot see create ticket button buy and rent" + operationTypeXpath, 10);
-            this.waitForElementAndClick(REALTY_TYPE_BUY_AND_RENT, "Cannot see create ticket button" + operationTypeXpath, 10);
+            this.waitForElementPresent(REALTY_TYPE_BUY_AND_RENT, "Cannot see realty type buy and rent" + operationTypeXpath, 10);
+            this.waitForElementAndClick(REALTY_TYPE_BUY_AND_RENT, "Cannot see and click realty type buy and rent" + operationTypeXpath, 5);
         }
-        this.waitForElementPresent(realtyTypeXpath, "Cannot see object type", 10);
-        this.waitForElementAndClick(realtyTypeXpath, "Cannot see and click object type", 10);
+        this.waitForElementPresent(realtyTypeXpath, "Cannot see realty type", 10);
+        this.waitForElementAndClick(realtyTypeXpath, "Cannot see and click realty type", 5);
     }
 
     private static String getXpathByOperationType(String operationType){
@@ -180,7 +180,7 @@ public class ObjectPageObject extends MainPageObject{
 
     public void pressCreateButton(){
         this.waitForElementPresent(CREATE_BUTTON, "Cannot see create button", 10);
-        this.waitForElementAndClick(CREATE_BUTTON, "Cannot see and click create button", 10);
+        this.waitForElementAndClick(CREATE_BUTTON, "Cannot see and click create button", 5);
     }
 
     public void assertIfTickedCreated(){

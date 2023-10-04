@@ -95,7 +95,7 @@ public class TemplatesTest extends CoreTestCase {
         Object.clickedToCreateTicketButton();
         Object.fillingValueInTicket(ticketClientNumber, ticketClientName);
         Object.pressContinueButton();
-        Object.changeTicketOperationAndRealtyType("Продать", "Дом");
+        Object.changeTicketOperationAndRealtyType("Продать", "До");
         Object.pressCreateButton();
         Object.assertIfTickedCreated();
     }
