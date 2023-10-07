@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class ObjectPageObject extends MainPageObject{
@@ -28,7 +29,7 @@ public class ObjectPageObject extends MainPageObject{
             REALTY_TYPE_TPL="xpath://*[contains(@text, '{realtyType}')]",
             TICKET_TOP_BAR_TITLE ="id:com.riesapp.debug:id/topBarTitle",
             LOADER = "id:com.riesapp.debug:id/ticketsListLoader",
-            CREATE_BUTTON="xpath://*[contains(@text, 'Создать')]",
+            CREATE_BUTTON="id:com.riesapp.debug:id/saveButton",
             OBJECT_WALL_MATERIAL="xpath://*[contains(@text, 'Материал стен')]",
             SELECT_METERIAL="xpath://*[contains(@text, 'Выбрано')]";
 
@@ -124,7 +125,7 @@ public class ObjectPageObject extends MainPageObject{
         return OBJECT_TYPE_TPL.replace("{objectType}", objectType);
     }
 
-
+    @Step("clicked on the create ticket button")
     public void clickedToCreateTicketButton(){
 
         this.waitForElementPresent(TICKET_TAB_FILTER,"Cannot see tab ticket", 10);
@@ -133,6 +134,7 @@ public class ObjectPageObject extends MainPageObject{
         this.waitForElementAndClick(CREATE_TICKET,"Cannot see and click create ticket button", 5);
 
     }
+    @Step("filling Phone number and Client Name in ticket")
     public void fillingValueInTicket(String ticketClientNumber, String ticketClientName) {
 
         this.waitForElementPresent(NUMBER_FIELD, "Cannot see client number field", 10);
@@ -141,12 +143,13 @@ public class ObjectPageObject extends MainPageObject{
         this.waitForElementAndClick(NAME_FIELD, "Cannot see and click client name field", 5);
         this.waitForElementAndSendKeys(NAME_FIELD_EDIT, ticketClientName, "Cannot see and sand client name field", 10);
     }
+    @Step("Clicked on continue button")
     public void pressContinueButton(){
         this.waitForElementPresent(CONTINUE_BUTTON, "Cannot see continue button", 10);
         this.waitForElementAndClick(CONTINUE_BUTTON, "Cannot see and click continue button", 5);
     }
-
-    public void changeTicketOperationAndRealtyType(String operationType, String realtyType) throws InterruptedException {
+    @Step("Change operation and realty ticket type")
+    public void changeTicketOperationAndRealtyType(String operationType, String realtyType)  {
         String operationTypeXpath = getXpathByOperationType(operationType);
         String realtyTypeXpath = getXpathByRealtyType(realtyType);
 
@@ -154,7 +157,7 @@ public class ObjectPageObject extends MainPageObject{
         this.waitForElementAndClick(OPERATION_TYPE_FIELD, "Cannot see and click  operation type field", 5);
         this.waitForElementPresent(operationTypeXpath, "Cannot see operation type", 5);
         this.waitForElementAndClick(operationTypeXpath, "Cannot see and click operation type", 5);
-        Thread.sleep(1000);
+        //       Thread.sleep(1000);
 //        switch(operationType)
 //        {
 //            case realtyType
@@ -177,7 +180,7 @@ public class ObjectPageObject extends MainPageObject{
     private static String getXpathByRealtyType(String realtyType){
         return REALTY_TYPE_TPL.replace("{realtyType}", realtyType);
     }
-
+    @Step("Clicked on create button")
     public void pressCreateButton(){
         this.waitForElementPresent(CREATE_BUTTON, "Cannot see create button", 10);
         this.waitForElementAndClick(CREATE_BUTTON, "Cannot see and click create button", 5);

@@ -1,5 +1,6 @@
 package lib.ui;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class AuthPageObject extends MainPageObject{
@@ -16,7 +17,7 @@ public class AuthPageObject extends MainPageObject{
             TAB_MENU = "xpath://*[contains(@text,'Меню')]",
             NEWS_SECTION = "xpath://*[contains(@text,'Новости')]";
 
-
+    @Step ("log in to the application")
     public void authStart(String login, String password){
         this.waitForElementPresent(LOGIN_FIELD, "Cannot see login field", 10);
         this.waitForElementAndClick(LOGIN_FIELD, "Cannot see and click login field", 5);
@@ -29,6 +30,7 @@ public class AuthPageObject extends MainPageObject{
         this.assertElementIsPresent(OBJECT_STATUS_FILTER, "Cannot see tab Object status filter");
 
     }
+    @Step("")
     public void waitForLoginField() {
         this.waitForElementPresent(LOGIN_FIELD, "Cannot see login field", 5);
     }
@@ -36,15 +38,17 @@ public class AuthPageObject extends MainPageObject{
         this.waitForElementAndClick(LOGIN_FIELD, "Cannot see and click login field", 3);
         this.waitForElementAndSendKeys(LOGIN_FIELD_EDIT, login, "Cannot see and sand key login field", 3);
     }
+    @Step("")
     public void fillinPassword(String password) {
         this.waitForElementAndClick(PASSWORD_FIELD, "Cannot see and click password field", 3);
         this.waitForElementAndSendKeys(PASSWORD_FIELD_EDIT, password, "Cannot see and sand key password field", 3);
     }
+    @Step("")
     public void pressLoginButton(){
         this.waitForElementPresent(LOGIN_BUTTON, "Cannot see login button", 5);
         this.waitForElementAndClick(LOGIN_BUTTON, "Cannot click login button", 3);
     }
-
+    @Step("")
     public  void assertIfObjectTab(){
         this.waitForElementPresent(OBJECT_STATUS_FILTER, "Cannot see tab Object", 5);
         this.assertElementIsPresent(OBJECT_STATUS_FILTER, "Cannot see tab Object status filter");
